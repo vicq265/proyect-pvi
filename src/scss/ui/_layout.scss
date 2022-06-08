@@ -1,0 +1,287 @@
+@use 'base/mixins' as m;
+@use 'base/variables' as v;
+
+@use '../custom' as *;
+
+
+.header {
+    height: 6rem;
+    padding: 0 6%;
+    background-color: v.$grisClaro;
+    box-shadow: v.$shadow;
+    font-size: 1.7rem;
+
+    .navbar {
+     
+        .navbar-collapse {
+            background-color: v.$grisClaro;
+            z-index: 1;
+        }
+
+        .nav-link {
+            color: v.$blanco;
+        }
+
+        .navbar-toggler:focus {
+            box-shadow: 0 0 0 0.25rem v.$blanco;
+        }
+    }
+    
+    .logo{
+        color: v.$blanco;
+        font-size: 3rem;
+        font-family: v.$fuenteSecundaria;
+        font-weight: bold;
+    }
+}
+
+.contenedor_main {
+    height: calc( 100vh - 6rem );
+    background-color: v.$terciario;
+    @include m.desktop {
+        background: linear-gradient( 77deg, #2e2e4d 72%, v.$grisClaro 72.1% );
+    }
+    overflow: hidden;
+    overflow-y: auto;
+
+    .btn_sidebar {
+        margin-top: 2rem;
+        font-size: 2rem;
+        color: v.$blanco;
+        display: block;
+
+        @include m.desktop {
+            display: none;
+        }
+    }
+}
+
+.sidebar {
+    width: 250px;
+    min-height: calc(100vh - 6rem);
+    z-index: 200;
+    background-color: v.$terciario;
+    // background: lightblue;
+    padding: 2rem 1rem;
+    position: fixed;
+    left: -100%;
+    transition: all .3s;
+    border-right: 1px solid rgba(42, 41, 41, 0.133);
+
+    .btn_close-sidebar {
+        background-color: v.$blanco;
+        padding: .2rem .8rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        display: block;
+
+        @include m.desktop {
+            display: none;
+        }
+
+        i {
+            font-weight: bold;
+            font-size: 1.8rem;
+        }
+    }
+
+    &.active {
+        left: 0;
+    }
+
+    @include m.desktop {
+        position: relative;
+        left: 0;
+    }
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+
+    .sidebar_item {
+        border-radius: 0.1rem;
+        background-color: rgba(0, 0, 0, 0.0);
+        font-size: 1.3rem;
+        border-left: 4px solid transparent;
+        margin: 1rem 0;
+        transition: all .3s;
+        
+        .sidebar_link {
+            color: v.$blanco;
+            font-weight: 600;
+            font-family: v.$fuenteTerciaria;
+            display: block;
+            padding: 1rem 1.5rem;
+            
+            display: flex;
+            align-items: center;
+        }
+
+        &.active, &:hover {
+            border-left: 4px solid v.$azulClaro;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: v.$azulClaro;
+
+            .sidebar_link {
+                color: v.$azulClaro;
+            }
+        }
+    }
+}
+
+.graphics {
+    display: grid;
+    margin-top: 3rem;
+    grid-template-columns: 100%;
+    gap: 1.6rem;
+
+    @include m.tablet {
+        grid-template-columns: repeat(2,1fr);
+    }
+
+    @include m.desktop {
+        grid-template-columns: repeat(3,1fr);
+    }
+
+    &> div {
+        background-color: v.$blanco;
+        box-shadow: v.$shadow;
+        border-radius: .4rem;
+        padding: 1rem 2rem;
+        position: relative;
+        h3 {
+            font-size: 1.2rem;
+            margin: 1rem 0 0.6rem;
+        }
+
+        &:last-of-type {
+            background-color: v.$terciario;
+            color: v.$blanco;
+            .progress {
+                background-color: v.$terciario;
+            }
+        }
+
+        &:hover {
+            box-shadow: none;
+        }
+
+        span {
+            background-color: v.$azulClaro;
+            padding: 0.5rem;
+            border-radius: 50%;
+            color: v.$blanco;
+            font-size: 2rem;
+        }
+
+        .middle {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .progress {
+            width: 120px;
+            height: 92px;
+            background-color: v.$blanco;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            svg {
+
+                width: 11rem;
+                height: 11rem;
+                @include m.tablet {
+                    width: 9rem;
+                    height: 9rem;
+                }
+
+                circle {
+                    fill: none;
+                    stroke: v.$azulClaro;
+                    stroke-width: 14;
+                    stroke-linecap: round;
+                    transform: translate(5px, 5px);
+                    stroke-dasharray: 110;
+                    stroke-dashoffset: 92;
+                }
+            }
+
+            .number {
+                position: absolute;
+            }
+        }
+
+        &.sale{
+            svg circle {
+                stroke-dashoffset: -30;
+                stroke-dasharray: 200;
+            }
+        }
+        
+        &.expenses{
+            svg circle {
+                stroke-dashoffset: 20;
+                stroke-dasharray: 80;
+            }
+        }
+
+        &.income{
+            svg circle {
+                stroke-dashoffset: 35;
+                stroke-dasharray: 110;
+            }
+        }
+
+        .small {
+            display: block;
+            font-size: 1rem;
+        }
+
+    } 
+
+}
+
+.items_container {
+    margin: 3rem 0;
+    display: grid;
+    gap: 1.6rem;
+    grid-template-columns: repeat(2, minmax(100px, 1fr));
+
+    @include m.tablet {
+        grid-template-columns: repeat(4, minmax(100px, 1fr));
+    }
+    @include m.desktop {
+        grid-template-columns: repeat(6, minmax(100px, 1fr));
+    }
+
+    .item {
+        border: 1px solid #ccc;
+        color: v.$blanco;
+        box-shadow: v.$shadow;
+        border-radius: .4rem;
+        padding: 1rem;
+        p  {
+            margin-top: 1rem;
+            text-align: start;
+            font-size: 1rem;
+            margin: 0;
+            line-height: 1.2;
+            letter-spacing: 1px;
+            color: v.$blanco;
+        }
+        // @include m.desktop {
+        //     &:nth-child(n+6){
+        //         border-color: v.$grisClaro;
+        //         p{
+        //             color: v.$negro;
+        //         }
+        //     }
+        // }
+    }
+}
+

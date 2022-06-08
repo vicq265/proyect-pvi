@@ -1,0 +1,17 @@
+@use 'base/variables' as v;
+
+// Colores
+$primary: v.$verde;
+$secondary: v.$gris;
+
+$headings-font-family: 'Poppins', sans-serif;
+$headings-font-weight: 700;
+
+// $headings-font-family: v.$fuentePrincipal;
+
+$font-family-sans-serif: 'Poppins', sans-serif;
+
+// Importar todo bootstrap
+
+@import '../../node_modules/bootstrap/scss/bootstrap.scss';
+
